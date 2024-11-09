@@ -23,7 +23,7 @@ def requests_with_retry(url, retries=3, backoff_factor=1, status_forcelist=(500,
         return response
     except requests.exceptions.RequestException as e: 
         # Log error
-        print("")
+        print("This should change to regular logging")
         
     return None
 
