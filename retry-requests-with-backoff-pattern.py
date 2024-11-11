@@ -5,8 +5,20 @@ from requests.adapters import HTTPAdapter
 from urllib3.util import Retry
 import logging
 
+# Basic logging configuration
+logging.basicConfig(
+    # Default logging level
+    level=logging.DEBUG,
+    # Format of log
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    # Log to a file in append mode
+    handlers=[
+        logging.FileHandler('retry-requests-with-backoff-pattern.log', mode='a')
+    ]
+)
+
 def requests_with_retry(url: str, retries: int = 3, backoff_factor: int = 1, status_forcelist: set[int]=(500,502,503,504)) -> str: 
-    """_summary_
+    """ requests_with_retry: Attempts to connect to a URL using the retry with backoff pattern in the case of a set of passed in errors
 
     Args:
         url (str): The URL that the user is requesting
@@ -15,7 +27,7 @@ def requests_with_retry(url: str, retries: int = 3, backoff_factor: int = 1, sta
         status_forcelist (set[int], optional): Set of HTTP error codes to force a retry on. Defaults to (500,502,503,504).
 
     Returns:
-        str: _description_
+        str: Response from the URL request; None if error encountered
     """
 
     # Define retry strategy
@@ -34,8 +46,8 @@ def requests_with_retry(url: str, retries: int = 3, backoff_factor: int = 1, sta
         response = session.get(url)
         return response
     except requests.exceptions.RequestException as e: 
-        # Log error
-        print("Change to regular logging")
+        # Log exception
+        logging.exception(f"{e}")
     
     # Return None for graceful error handling
     return None
