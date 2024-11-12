@@ -44,10 +44,36 @@ def requests_with_retry(url: str, retries: int = 3, backoff_factor: int = 1, sta
     # Attempt to get response and handle any other errors that may occur (e.g. DNS resolution errors)
     try: 
         response = session.get(url)
+        response.raise_for_status()
+        
         return response
-    except requests.exceptions.RequestException as e: 
-        # Log exception
-        logging.exception(f"{e}")
+    
+    except requests.exceptions.Timeout as e:
+        logging.exception(f"Request timed out: {e}")
+    
+    except requests.exceptions.TooManyRedirects as e:
+        logging.exception(f"Too many redirects: {e}")
+    
+    except requests.exceptions.ConnectionError as e:
+        logging.exception(f"Connection error: {e}")
+    
+    except requests.exceptions.HTTPError as e:
+        logging.exception(f"HTTP error occurred: {e}")
+    
+    except requests.exceptions.JSONDecodeError as e:
+        logging.exception(f"JSON decoding error: {e}")
+    
+    except requests.exceptions.ProxyError as e:
+        logging.exception(f"Proxy error: {e}")
+    
+    except requests.exceptions.SSLError as e:
+        logging.exception(f"SSL error: {e}")
+    
+    except requests.exceptions.ContentDecodingError as e:
+        logging.exception(f"Content decoding error: {e}")
+    
+    except requests.exceptions.RequestException as e:
+        logging.exception(f"Request failed: {e}")
     
     # Return None for graceful error handling
     return None
