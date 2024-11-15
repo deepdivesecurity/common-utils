@@ -11,10 +11,10 @@ logging.basicConfig(
     # Default logging level
     level=logging.DEBUG,
     # Format of log
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
     # Log to a file in append mode
     handlers=[
-        logging.FileHandler('retry-requests-with-backoff-pattern.log', mode='a')
+        logging.FileHandler("coding_pattern_utils.log", mode="a")
     ]
 )
 
