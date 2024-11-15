@@ -14,7 +14,7 @@ This repo contains common helper coding patterns including but not limited to re
 
 ## Project Description
 
-retry_requests_with_backoff_pattern.py: Attempts to connect to a URL using the retry with backoff pattern in the case of a set of passed in errors.
+coding_pattern_utils.py: Contains multiple util coding pattern functions that can be reused across projects. (e.g. Retry with backoff pattern).
 
 ---
 
